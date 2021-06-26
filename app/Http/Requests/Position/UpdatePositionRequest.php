@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Position;
 
+use App\Http\Request\BaseApiRequest;
+
 class UpdatePositionRequest extends BaseApiRequest
 {
     /**

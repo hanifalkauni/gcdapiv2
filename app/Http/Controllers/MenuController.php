@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\DeleteMenuRequest;
-use App\Http\Requests\UpdateMenuRequest;
-use App\Http\Requests\CreateMenuRequest;
+use App\Http\Requests\Menu\DeleteMenuRequest;
+use App\Http\Requests\Menu\UpdateMenuRequest;
+use App\Http\Requests\Menu\CreateMenuRequest;
 use App\Providers\MenuServiceProvider;
 
 class MenuController extends BaseApiController

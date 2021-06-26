@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Outlet;
 
+use App\Http\Request\BaseApiRequest;
 
 class DeleteOutletRequest extends BaseApiRequest
 {

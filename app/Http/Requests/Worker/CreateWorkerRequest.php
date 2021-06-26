@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Worker;
 
+use App\Http\Request\BaseApiRequest;
 
 class CreateWorkerRequest extends BaseApiRequest
 {

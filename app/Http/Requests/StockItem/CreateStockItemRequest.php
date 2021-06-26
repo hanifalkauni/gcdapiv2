@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\StockItem;
 
 use App\Http\Request\BaseApiRequest;
 
-class UpdateItemRequest extends BaseApiRequest
+
+class CreateStockItemRequest extends BaseApiRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -13,9 +14,11 @@ class UpdateItemRequest extends BaseApiRequest
      */
     public function rules() {
         return [
+            'outletId' => 'required|integer',
             'itemId' => 'required|integer',
-            'itemName' => 'required',
-            'itemUnitOfQuantity'=>'required|string'
+            'stockItemDate' => 'required|date',
+            'stockItemRemains'=>'required|numeric',
+            'stockItemStatus'=>'required|string'
         ];
     }
 

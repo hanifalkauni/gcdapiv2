@@ -2,29 +2,27 @@
 
 namespace App\Http\Requests\Menu;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Request\BaseApiRequest;
 
-class DeleteMenuRequest extends FormRequest
+class DeleteMenuRequest extends BaseApiRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return false;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
      * @return array
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            //
+            'menuId' => 'required|integer'
         ];
+    }
+
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize() {
+        return true;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Outlet;
 
-
+use App\Http\Request\BaseApiRequest;
 
 class CreateOutletRequest extends BaseApiRequest
 {

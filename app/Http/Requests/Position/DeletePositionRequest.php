@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Position;
 
+use App\Http\Request\BaseApiRequest;
 
 class DeletePositionRequest extends BaseApiRequest
 {

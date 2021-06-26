@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\DeleteItemRequest;
-use App\Http\Requests\UpdateItemRequest;
-use App\Http\Requests\CreateItemRequest;
+use App\Http\Requests\Item\DeleteItemRequest;
+use App\Http\Requests\Item\UpdateItemRequest;
+use App\Http\Requests\Item\CreateItemRequest;
 use App\Providers\ItemServiceProvider;
 
 class ItemController extends BaseApiController

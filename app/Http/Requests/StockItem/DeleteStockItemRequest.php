@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Request\BaseApiRequest;
+use App\Htttp\Request\BaseApiRequest;
 
-class UpdateItemRequest extends BaseApiRequest
+class DeleteStockItemRequest extends BaseApiRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -13,9 +13,7 @@ class UpdateItemRequest extends BaseApiRequest
      */
     public function rules() {
         return [
-            'itemId' => 'required|integer',
-            'itemName' => 'required',
-            'itemUnitOfQuantity'=>'required|string'
+            'stockItemId' => 'required|integer',
         ];
     }
 
