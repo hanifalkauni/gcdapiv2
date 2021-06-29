@@ -16,7 +16,7 @@ class CreateExpensesTable extends Migration
         Schema::create('expenses', function (Blueprint $table) {
             $table->increments('id');
             $table->date('expenseDate');
-            $table->integer('workerId');
+            $table->integer('workerId')->unsigned();
             $table->string('expenseName');
             $table->enum('expenseDivision',['general','kitchen','outlet','spesific'])->default('general');
             $table->integer('expenseCost');
