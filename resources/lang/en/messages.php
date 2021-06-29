@@ -50,5 +50,31 @@ return [
     'stock_item_updated' => 'Stock Item has been updated successfully',
     'stock_item_deleted' => 'Stock Item has been deleted successfully',
 
+    'attendances_list' => 'Attendances list',
+    'attendance_created' => 'Attendance has been created successfully',
+    'attendance_updated' => 'Attendance has been updated successfully',
+    'attendance_deleted' => 'Attendance has been deleted successfully',
+
+    'transactions_list' => 'Transactions list',
+    'transaction_created' => 'Transaction has been created successfully',
+    'transaction_updated' => 'Transaction has been updated successfully',
+    'transaction_deleted' => 'Transaction has been deleted successfully',
+
+    'sub_transactions_list' => 'Sub Transactions list',
+    'sub_transaction_created' => 'Sub Transaction has been created successfully',
+    'sub_transaction_updated' => 'Sub Transaction has been updated successfully',
+    'sub_transaction_deleted' => 'Sub Transaction has been deleted successfully',
+
     
+    'expenses_list' => 'Expenses list',
+    'expense_created' => 'Expense has been created successfully',
+    'expense_updated' => 'Expense has been updated successfully',
+    'expense_deleted' => 'Expense has been deleted successfully',
+
+    
+    'cashflows_list' => 'Cashflows list',
+    'cashflow_created' => 'Cashflow has been created successfully',
+    'cashflow_updated' => 'Cashflow has been updated successfully',
+    'cashflow_deleted' => 'Cashflow has been deleted successfully',
+
 ];

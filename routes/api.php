@@ -46,5 +46,16 @@ Route::group(['middleware' => 'apiKeyAuth'], function () {
         Route::post('/stockitem/create','StockItemController@create');
         Route::put('/stockitem/update','StockItemController@update');
         Route::delete('/stockitem/delete','StockItemController@delete');
+    
+        Route::get('/cashflow/get','CashFlowController@get');
+        Route::post('/cashflow/create','CashFlowController@create');
+        Route::put('/cashflow/update','CashFlowController@update');
+        Route::delete('/cashflow/delete','CashFlowController@delete');
+
+        Route::get('/expense/get','ExpenseController@get');
+        Route::post('/expense/create','ExpenseController@create');
+        Route::put('/expense/update','ExpenseController@update');
+        Route::delete('/expense/delete','ExpenseController@delete');
+    
     });
 });

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\StockMenu;
+namespace App\Http\Requests\Transaction;
 
 use App\Http\Request\BaseApiRequest;
 
-class DeleteStockMenuRequest extends BaseApiRequest
+class UpdateTransactionRequest extends BaseApiRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -13,8 +13,11 @@ class DeleteStockMenuRequest extends BaseApiRequest
      */
     public function rules() {
         return [
-            'stockMenuId'=>'required|integer',
-         ];
+            'transactionId'=>'required|integer',
+            'attendanceId' => 'required|integer',
+            'transactionType' => 'required',
+            'transactionTotal' => 'required|numeric'
+        ];
     }
 
     /**
@@ -25,4 +28,5 @@ class DeleteStockMenuRequest extends BaseApiRequest
     public function authorize() {
         return true;
     }
+
 }

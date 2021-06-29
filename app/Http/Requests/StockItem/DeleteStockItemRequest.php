@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\StockItem;
 
 use App\Htttp\Request\BaseApiRequest;
 

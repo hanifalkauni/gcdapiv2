@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\StockMenu;
+namespace App\Http\Requests\SubTransaction;
 
 use App\Http\Request\BaseApiRequest;
 
-class CreateStockMenuRequest extends BaseApiRequest
+class UpdateSubTransactionRequest extends BaseApiRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -13,10 +13,11 @@ class CreateStockMenuRequest extends BaseApiRequest
      */
     public function rules() {
         return [
-            'outletId' => 'required|integer',
-            'menuId' => 'required|integer',
-            'stockMenuDate' => 'required|date',
-            'stockMenumRemains'=>'required|numeric'
+            'subTransactionId'=>'required|integer',
+            'transactionId' => 'required|integer',
+            'subTransactionName' => 'required|string',
+            'subTransactionQuantity' => 'required|numeric',
+            'subTransactionTotal'=>'required|numeric'
         ];
     }
 

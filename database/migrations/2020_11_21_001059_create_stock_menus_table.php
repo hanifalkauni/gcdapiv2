@@ -15,7 +15,7 @@ class CreateStockMenusTable extends Migration
     {
         Schema::create('stock_menus', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('date');
+            $table->date('stockMenuDate')->date();
             $table->integer('outletId')->unsigned();
             $table->integer('menuId')->unsigned();
             $table->integer('stockMenuRemains');

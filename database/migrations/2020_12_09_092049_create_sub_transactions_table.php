@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePositionsTable extends Migration
+class CreateSubTransactionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,17 @@ class CreatePositionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('positions', function (Blueprint $table) {
+        Schema::create('sub_transactions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('positionName');
-            $table->string('positionSalary');
+            $table->integer('transactionId')->unsigned();
+            $table->integer('subTransactionName');
+            $table->integer('subTransactionQuantity')->unsigned();
+            $table->integer('subTransactionTotal');
             $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             $table->softDeletes();
+
+            $table->foreign('transactionId')->references('id')->on('transactions');
         });
     }
 
@@ -30,6 +34,6 @@ class CreatePositionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('positions');
+        Schema::dropIfExists('sub_transactions');
     }
 }

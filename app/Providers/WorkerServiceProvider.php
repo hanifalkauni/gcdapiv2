@@ -43,7 +43,7 @@ class WorkerServiceProvider extends BaseServiceProvider
             ]);
             if($isWorkerCreated){
                 UserServiceProvider::$data['status'] = 1;
-                UserServiceProvider::$data['message'] = trans('messages.outlet_created');
+                UserServiceProvider::$data['message'] = trans('messages.worker_created');
             }
 
         } catch (\Exception $e) {

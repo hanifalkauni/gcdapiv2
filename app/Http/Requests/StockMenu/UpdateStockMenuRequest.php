@@ -1,30 +1,32 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\StockMenu;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Request\BaseApiRequest;
 
-class UpdateStockMenuRequest extends FormRequest
+class UpdateStockMenuRequest extends BaseApiRequest
 {
+   /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules() {
+        return [
+            'stockMenuId'=>'required|integer',
+            'outletId' => 'required|integer',
+            'menuId' => 'required|integer',
+            'stockMenuDate' => 'required|date',
+            'stockMenumRemains'=>'required|numeric'
+        ];
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
-    {
-        return false;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [
-            //
-        ];
+    public function authorize() {
+        return true;
     }
 }

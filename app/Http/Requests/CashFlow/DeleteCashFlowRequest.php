@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\StockMenu;
+namespace App\Http\Requests\CashFlow;
 
 use App\Http\Request\BaseApiRequest;
 
-class DeleteStockMenuRequest extends BaseApiRequest
+class DeleteCashFlowRequest extends BaseApiRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -13,10 +13,9 @@ class DeleteStockMenuRequest extends BaseApiRequest
      */
     public function rules() {
         return [
-            'stockMenuId'=>'required|integer',
-         ];
+            'cashflowId'=>'required|integer',
+            ];
     }
-
     /**
      * Determine if the user is authorized to make this request.
      *
