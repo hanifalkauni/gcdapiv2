@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\Models\Sub_Transaction;
 
-class SubTransactionServiceProvider extends BaseApiServiceProvider
+class SubTransactionServiceProvider extends BaseServiceProvider
 {
     public function __construct()
     {

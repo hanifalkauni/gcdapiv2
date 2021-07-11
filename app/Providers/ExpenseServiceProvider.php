@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\Models\Expense;
 
-class ExpenseServiceProvider extends BaseApiServiceProvider
+class ExpenseServiceProvider extends BaseServiceProvider
 {
     public function __construct()
     {

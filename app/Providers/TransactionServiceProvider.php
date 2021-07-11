@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\Models\Transaction;
 
-class TransactionServiceProvider extends BaseApiServiceProvider
+class TransactionServiceProvider extends BaseServiceProvider
 {
     public function __construct()
     {

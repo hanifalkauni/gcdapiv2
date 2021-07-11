@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\Models\CashFlow;
 
-class CashFlowServiceProvider extends BaseApiServiceProvider
+class CashFlowServiceProvider extends BaseServiceProvider
 {
     public function __construct()
     {
