@@ -1,45 +1,3034 @@
 {
-    "swagger": "2.0",
-    "info": {
-        "title": "GCD API",
-        "description": "Web Service Geprek Chicken Dinner",
-        "contact": {
-            "email": "your-email@domain.com"
-        },
-        "version": "1.0.0"
+  "swagger": "2.0",
+  "info": {
+    "description": "This is the GCD Web Service. You can access data using `ApiKey` and `AccessToken`. Contact us to get `ApiKey` and `AccessToken`",
+    "version": "1.0.0",
+    "title": "GCD API",
+    "contact": {
+      "email": "gcdsumbawa.management@gmail.com"
+    }
+  },
+  "host": "localhost:8000",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "user",
+      "description": "Operations about user"
     },
-    "host": "localhost:8000",
-    "basePath": "",
-    "schemes": [
-        "http",
-        "https"
-    ],
-    "paths": {
-        "/api/testing/{mytest}": {
-            "get": {
-                "summary": "Get Testing",
-                "operationId": "testing",
-                "parameters": [
-                    {
-                        "name": "mytest",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation"
-                    },
-                    "406": {
-                        "description": "not acceptable"
-                    },
-                    "500": {
-                        "description": "internal server error"
-                    }
-                }
+    {
+      "name": "outlet",
+      "description": "Everything about Our Outlets"
+    },
+    {
+      "name": "worker",
+      "description": "Access to data Worker"
+    },
+    {
+      "name": "position",
+      "description": "Access to type of Position in GCD"
+    },
+    {
+      "name": "menu",
+      "description": "Access to about what's on the menu"
+    },
+    {
+      "name": "item",
+      "description": "Access to about item service support"
+    },
+    {
+      "name": "stockmenu",
+      "description": "Access to quantity of our menu"
+    },
+    {
+      "name": "stockitem",
+      "description": "Access to quantity of out item"
+    },
+    {
+      "name": "attendance",
+      "description": "Access to daily operation"
+    },
+    {
+      "name": "transaction",
+      "description": "Access to transaction of each outlet"
+    },
+    {
+      "name": "subtransaction",
+      "description": "Access to description of each transaction"
+    },
+    {
+      "name": "expense",
+      "description": "Access to daily expense"
+    },
+    {
+      "name": "cashflow",
+      "description": "Access to daily cashflow"
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/outlet/create": {
+      "post": {
+        "tags": [
+          "outlet"
+        ],
+        "summary": "create a new Outlet",
+        "description": "",
+        "operationId": "createOutlet",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Outlet object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Outlet"
             }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
         }
+      }
     },
-    "definitions": {}
+    "/outlet/update": {
+      "put": {
+        "tags": [
+          "outlet"
+        ],
+        "summary": "Update an existing outlet",
+        "description": "",
+        "operationId": "updateOutlet",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Outlet object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Outlet"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Pet not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/outlet/gets": {
+      "get": {
+        "tags": [
+          "outlet"
+        ],
+        "summary": "display all data outlets",
+        "description": "Multiple status values can be provided with comma separated strings",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Outlet"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/outlet/get": {
+      "get": {
+        "tags": [
+          "outlet"
+        ],
+        "summary": "Find outlet by ID",
+        "description": "Returns a single outlet",
+        "operationId": "getOutletById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "outletId",
+            "in": "body",
+            "description": "ID of outlet to return",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Outlet"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Outlet"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Pet not found"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/outlet/delete": {
+      "delete": {
+        "tags": [
+          "outlet"
+        ],
+        "summary": "Deletes a outlet",
+        "description": "",
+        "operationId": "deleteOutlet",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "outletId",
+            "in": "body",
+            "description": "outlet id to delete",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Outlet"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "outlet not found"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/worker/create": {
+      "post": {
+        "tags": [
+          "worker"
+        ],
+        "summary": "create a new Worker",
+        "description": "",
+        "operationId": "createWorker",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Worker object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Worker"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/worker/update": {
+      "put": {
+        "tags": [
+          "worker"
+        ],
+        "summary": "Update an existing worker",
+        "description": "",
+        "operationId": "updateWorker",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Worker object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Worker"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Pet not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/worker/gets": {
+      "get": {
+        "tags": [
+          "worker"
+        ],
+        "summary": "display all data workers",
+        "description": "Multiple status values can be provided with comma separated strings",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Worker"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/worker/get": {
+      "get": {
+        "tags": [
+          "worker"
+        ],
+        "summary": "Find outlet by ID",
+        "description": "Returns a single outlet",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "workerId",
+            "in": "body",
+            "description": "ID of outlet to return",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Worker"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Worker"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Pet not found"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/worker/delete": {
+      "delete": {
+        "tags": [
+          "worker"
+        ],
+        "summary": "Deletes a worker",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "outletId",
+            "in": "body",
+            "description": "outlet id to delete",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Outlet"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "outlet not found"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/position/create": {
+      "post": {
+        "tags": [
+          "position"
+        ],
+        "summary": "create a new Position",
+        "description": "",
+        "operationId": "createPosition",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Position object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Position"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/position/update": {
+      "put": {
+        "tags": [
+          "position"
+        ],
+        "summary": "Update an existing position",
+        "description": "",
+        "operationId": "updatePosition",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "position object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Position"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Pet not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/position/gets": {
+      "get": {
+        "tags": [
+          "position"
+        ],
+        "summary": "display all data positions",
+        "description": "Multiple status values can be provided with comma separated strings",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Position"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/position/get": {
+      "get": {
+        "tags": [
+          "position"
+        ],
+        "summary": "Find position by ID",
+        "description": "Returns a single outlet",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "workerId",
+            "in": "body",
+            "description": "ID of outlet to return",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Position"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Position"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Pet not found"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/positon/delete": {
+      "delete": {
+        "tags": [
+          "position"
+        ],
+        "summary": "Deletes a positon",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "outletId",
+            "in": "body",
+            "description": "position id to delete",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Outlet"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Position not found"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/menu/create": {
+      "post": {
+        "tags": [
+          "menu"
+        ],
+        "summary": "create a new Menu",
+        "description": "",
+        "operationId": "createMenu",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Menu object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Menu"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/menu/update": {
+      "put": {
+        "tags": [
+          "menu"
+        ],
+        "summary": "Update an existing position",
+        "description": "",
+        "operationId": "updateMenu",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "menu object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Menu"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Data not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/menu/gets": {
+      "get": {
+        "tags": [
+          "menu"
+        ],
+        "summary": "display all data menus",
+        "description": "Multiple status values can be provided with comma separated strings",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Menu"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/menu/get": {
+      "get": {
+        "tags": [
+          "position"
+        ],
+        "summary": "Find menu by ID",
+        "description": "Returns a single menu",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "workerId",
+            "in": "body",
+            "description": "ID of menu to return",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Menu"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Menu"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Pet not found"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/menu/delete": {
+      "delete": {
+        "tags": [
+          "menu"
+        ],
+        "summary": "Deletes a menu",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "outletId",
+            "in": "body",
+            "description": "menu id to delete",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Menu"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Data not found"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/item/create": {
+      "post": {
+        "tags": [
+          "item"
+        ],
+        "summary": "create a new Item",
+        "description": "",
+        "operationId": "createItem",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Item object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Item"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/item/update": {
+      "put": {
+        "tags": [
+          "item"
+        ],
+        "summary": "Update an existing position",
+        "description": "",
+        "operationId": "updateItem",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "item object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Item"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Data not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/item/gets": {
+      "get": {
+        "tags": [
+          "item"
+        ],
+        "summary": "display all data Item",
+        "description": "Multiple status values can be provided with comma separated strings",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Item"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/item/get": {
+      "get": {
+        "tags": [
+          "item"
+        ],
+        "summary": "Find item by ID",
+        "description": "Returns a single item",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "itemId",
+            "in": "body",
+            "description": "ID of menu to return",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Item"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Item"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Data not found"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/item/delete": {
+      "delete": {
+        "tags": [
+          "item"
+        ],
+        "summary": "Deletes a item",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "outletId",
+            "in": "body",
+            "description": "item id to delete",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Item"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Data not found"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/stockmenu/create": {
+      "post": {
+        "tags": [
+          "stockmenu"
+        ],
+        "summary": "create a new stock menu",
+        "description": "",
+        "operationId": "createStockMenu",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Stock Menu object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/StockMenu"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/stockmenu/update": {
+      "put": {
+        "tags": [
+          "stockmenu"
+        ],
+        "summary": "Update an existing stock menu",
+        "description": "",
+        "operationId": "updateStockMenu",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "stockMenu object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/StockMenu"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Data not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/stockmenu/gets": {
+      "get": {
+        "tags": [
+          "stockmenu"
+        ],
+        "summary": "display all data stock menu",
+        "description": "Multiple status values can be provided with comma separated strings",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/StockMenu"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/stockmenu/get": {
+      "get": {
+        "tags": [
+          "stockmenu"
+        ],
+        "summary": "Find stock menu by ID",
+        "description": "Returns a single stock menu",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "stockMenuId",
+            "in": "body",
+            "description": "ID of menu to return",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/StockMenu"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/StockMenu"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Data not found"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/stockmenu/delete": {
+      "delete": {
+        "tags": [
+          "stockmenu"
+        ],
+        "summary": "Deletes a stock menu",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "outletId",
+            "in": "body",
+            "description": "item id to delete",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/StockMenu"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Data not found"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/attendance/create": {
+      "post": {
+        "tags": [
+          "attendance"
+        ],
+        "summary": "create a new attendance",
+        "description": "",
+        "operationId": "createAttendance",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Attendance object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Attendance"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/attendance/update": {
+      "put": {
+        "tags": [
+          "attendance"
+        ],
+        "summary": "Update an existing attendance",
+        "description": "",
+        "operationId": "updateAttendance",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "attendance object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Attendance"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Data not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/attendance/gets": {
+      "get": {
+        "tags": [
+          "attendance"
+        ],
+        "summary": "display all data attendance",
+        "description": "Multiple status values can be provided with comma separated strings",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Attendance"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/attendance/get": {
+      "post": {
+        "tags": [
+          "attendance"
+        ],
+        "summary": "Find attendance by ID",
+        "description": "Returns a single attendance",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "attendanceId",
+            "in": "body",
+            "description": "ID of menu to return",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Attendance"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Attendance"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Data not found"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/attendance/delete": {
+      "delete": {
+        "tags": [
+          "attendance"
+        ],
+        "summary": "Deletes a attendance",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "outletId",
+            "in": "body",
+            "description": "attendance id to delete",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Attendance"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Data not found"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/transaction/create": {
+      "post": {
+        "tags": [
+          "transaction"
+        ],
+        "summary": "create a new transaction",
+        "description": "",
+        "operationId": "createTransaction",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Transaction object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Transaction"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/transaction/update": {
+      "put": {
+        "tags": [
+          "transaction"
+        ],
+        "summary": "Update an existing transaction",
+        "description": "",
+        "operationId": "updateTransaction",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "transaction object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Transaction"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Data not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/transaction/gets": {
+      "get": {
+        "tags": [
+          "transaction"
+        ],
+        "summary": "display all data transaction",
+        "description": "Multiple status values can be provided with comma separated strings",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Transaction"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/transaction/get": {
+      "get": {
+        "tags": [
+          "transaction"
+        ],
+        "summary": "Find transaction by ID",
+        "description": "Returns a single transaction",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "transactionId",
+            "in": "body",
+            "description": "ID of transaction to return",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Transaction"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Transaction"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Data not found"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/transaction/delete": {
+      "delete": {
+        "tags": [
+          "transaction"
+        ],
+        "summary": "Deletes a transaction",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "transactionId",
+            "in": "body",
+            "description": "transaction id to delete",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Transaction"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Data not found"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/subtransaction/create": {
+      "post": {
+        "tags": [
+          "subtransaction"
+        ],
+        "summary": "create a new subtransaction",
+        "description": "",
+        "operationId": "createSubTransaction",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Sub Transaction object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SubTransaction"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/subtransaction/update": {
+      "put": {
+        "tags": [
+          "transaction"
+        ],
+        "summary": "Update an existing transaction",
+        "description": "",
+        "operationId": "updateSubTransaction",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "transaction object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Transaction"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Data not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/subtransaction/gets": {
+      "get": {
+        "tags": [
+          "subtransaction"
+        ],
+        "summary": "display all data subtransaction",
+        "description": "Multiple status values can be provided with comma separated strings",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SubTransaction"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/subtransaction/get": {
+      "get": {
+        "tags": [
+          "transaction"
+        ],
+        "summary": "Find sub transaction by ID",
+        "description": "Returns a single sub transaction",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "subtransactionId",
+            "in": "body",
+            "description": "ID of transaction to return",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SubTransaction"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/SubTransaction"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Data not found"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/subtransaction/delete": {
+      "delete": {
+        "tags": [
+          "subtransaction"
+        ],
+        "summary": "Deletes a transaction",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "transactionId",
+            "in": "body",
+            "description": "transaction id to delete",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SubTransaction"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Data not found"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/stockitem/create": {
+      "post": {
+        "tags": [
+          "stockitem"
+        ],
+        "summary": "create a new stock item",
+        "description": "",
+        "operationId": "createStockItem",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Stock Item object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/StockItem"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/stockitem/update": {
+      "put": {
+        "tags": [
+          "stockitem"
+        ],
+        "summary": "Update an existing stock item",
+        "description": "",
+        "operationId": "updateStockItem",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "stock Item object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/StockItem"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Data not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/stockitem/gets": {
+      "get": {
+        "tags": [
+          "stockitem"
+        ],
+        "summary": "display all data stock item",
+        "description": "Multiple status values can be provided with comma separated strings",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/StockItem"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/stockitem/get": {
+      "get": {
+        "tags": [
+          "stockitem"
+        ],
+        "summary": "Find stock item by ID",
+        "description": "Returns a single stock item",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "stockItemId",
+            "in": "body",
+            "description": "ID of menu to return",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/StockItem"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/StockItem"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Data not found"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/stockitem/delete": {
+      "delete": {
+        "tags": [
+          "stockitem"
+        ],
+        "summary": "Deletes a stock item",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "outletId",
+            "in": "body",
+            "description": "stock item id to delete",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/StockItem"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Data not found"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/expense/create": {
+      "post": {
+        "tags": [
+          "expense"
+        ],
+        "summary": "create a new expense",
+        "description": "",
+        "operationId": "createExpense",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Expense object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Expense"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/expense/update": {
+      "put": {
+        "tags": [
+          "expense"
+        ],
+        "summary": "Update an existing expense",
+        "description": "",
+        "operationId": "updateExpense",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "expense object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Expense"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Data not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/expense/gets": {
+      "get": {
+        "tags": [
+          "expense"
+        ],
+        "summary": "display all data expense",
+        "description": "Multiple status values can be provided with comma separated strings",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Expense"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/expense/get": {
+      "get": {
+        "tags": [
+          "expense"
+        ],
+        "summary": "Find expense by ID",
+        "description": "Returns a single expense",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "expenseId",
+            "in": "body",
+            "description": "ID of expense to return",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Expense"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Transaction"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Data not found"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/expense/delete": {
+      "delete": {
+        "tags": [
+          "expense"
+        ],
+        "summary": "Deletes a expense",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "expenseId",
+            "in": "body",
+            "description": "expense id to delete",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Expense"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Data not found"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/cashflow/create": {
+      "post": {
+        "tags": [
+          "cashflow"
+        ],
+        "summary": "create a new cashflow",
+        "description": "",
+        "operationId": "createCashflow",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Cashflow object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Cashflow"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/cashflow/update": {
+      "put": {
+        "tags": [
+          "cashflow"
+        ],
+        "summary": "Update an existing cashflow",
+        "description": "",
+        "operationId": "updateCashflow",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "cashflow object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Cashflow"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Data not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/cashflow/gets": {
+      "get": {
+        "tags": [
+          "cashflow"
+        ],
+        "summary": "display all data cashflow",
+        "description": "Multiple status values can be provided with comma separated strings",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Cashflow"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/cashflow/get": {
+      "get": {
+        "tags": [
+          "cashflow"
+        ],
+        "summary": "Find cashflow by ID",
+        "description": "Returns a single cashflow",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "cashflowId",
+            "in": "body",
+            "description": "ID of transaction to return",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Cashflow"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Cashflow"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Data not found"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/cashflow/delete": {
+      "delete": {
+        "tags": [
+          "cashflow"
+        ],
+        "summary": "Deletes a cashflow",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "cashflowId",
+            "in": "body",
+            "description": "cashflow id to delete",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Cashflow"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Data not found"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/user/register": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create user",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "createUser",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/login": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logs user into the system",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "description": "The email for login",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "description": "The password for login in clear text",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            },
+            "headers": {
+              "X-Rate-Limit": {
+                "type": "integer",
+                "format": "int32",
+                "description": "calls per hour allowed by the user"
+              },
+              "X-Expires-After": {
+                "type": "string",
+                "format": "date-time",
+                "description": "date in UTC when token expires"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username/password supplied"
+          }
+        }
+      }
+    },
+    "/user/get": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get All User's Data",
+        "description": "",
+        "operationId": "getUsers",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Invalid username supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/user/delete": {
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Delete user",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "deleteUser",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid username supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    },
+    "accessToken": {
+      "type": "apiKey",
+      "name": "accessToken",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "Outlet": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "outletName": {
+          "type": "string"
+        },
+        "outletLocation": {
+          "type": "string"
+        },
+        "outletDateOperation": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "Position": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "positionName": {
+          "type": "string"
+        },
+        "Salary": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "Worker": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "workerIdentity": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "workerIdPosition": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "workerName": {
+          "type": "string"
+        },
+        "workerPhone": {
+          "type": "integer"
+        },
+        "workerEmail": {
+          "type": "string"
+        },
+        "workerDateEntry": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "Item": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "itemName": {
+          "type": "string"
+        },
+        "itemUnitOfQuantity": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "StockItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "outletId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "itemId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "stockItemDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "stockItemRemains": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "stockItemStatus": {
+          "type": "string",
+          "enum": [
+            "safe",
+            "danger"
+          ]
+        }
+      }
+    },
+    "Menu": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "menuName": {
+          "type": "string"
+        },
+        "menuPrice": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "StockMenu": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "outletId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "menuId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "stockMenuDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "stockMenuRemains": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "Attendance": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "outletId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "workerId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "attendanceDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "attendanceShift": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "attendanceIncome": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "attendanceExpense": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "attendanceOmset": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "attendanceCheckIn": {
+          "type": "string",
+          "format": "time"
+        },
+        "attendanceCheckOut": {
+          "type": "string",
+          "format": "time"
+        },
+        "attendanceMessage": {
+          "type": "string"
+        },
+        "attendanceNote": {
+          "type": "string"
+        }
+      }
+    },
+    "Transaction": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "attendanceId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "transactionType": {
+          "type": "string",
+          "enum": [
+            "income",
+            "expense"
+          ]
+        },
+        "transactionTotal": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "SubTransaction": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "transactionId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "subTransactionName": {
+          "type": "string"
+        },
+        "subTransactionQuantity": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "subTransactionTotal": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "Expense": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "workerId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "expenseDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "expenseName": {
+          "type": "string"
+        },
+        "expenseDivision": {
+          "type": "string"
+        },
+        "expenseCost": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "expenseNote": {
+          "type": "string"
+        }
+      }
+    },
+    "Cashflow": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "cashflowDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "cashflowIncome": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "cashflowExpense": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "cashflowBalance": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "role": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "User Status"
+        }
+      }
+    },
+    "AccessToken": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "deviceToken": {
+          "type": "string"
+        },
+        "deviceId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "deviceType": {
+          "type": "integer",
+          "format": "int32",
+          "enum": [
+            "1 (ios)",
+            "2 (android)"
+          ]
+        },
+        "accessToken": {
+          "type": "string"
+        }
+      }
+    },
+    "ApiResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "string"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
 }
