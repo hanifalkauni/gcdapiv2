@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\StockItem;
 
-use App\Http\Request\BaseApiRequest;
+use App\Http\Requests\BaseApiRequest;
 
 class UpdateStockItemRequest extends BaseApiRequest
 {

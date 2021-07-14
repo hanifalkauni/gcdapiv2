@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Transaction;
 
-use App\Http\Request\BaseApiRequest;
+use App\Http\Requests\BaseApiRequest;
 
 class DeleteTransactionRequest extends FormRequest
 {

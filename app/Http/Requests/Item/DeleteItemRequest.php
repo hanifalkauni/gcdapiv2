@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Item;
 
-use App\Http\Request\BaseApiRequest;
+use App\Http\Requests\BaseApiRequest;
 
 class DeleteItemRequest extends BaseApiRequest
 {

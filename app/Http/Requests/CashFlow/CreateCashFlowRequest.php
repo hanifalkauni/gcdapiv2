@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\CashFlow;
 
-use App\Http\Request\BaseApiRequest;
+use App\Http\Requests\BaseApiRequest;
 
 class CreateCashFlowRequest extends BaseApiRequest
 {

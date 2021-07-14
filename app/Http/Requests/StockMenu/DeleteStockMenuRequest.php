@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\StockMenu;
 
-use App\Http\Request\BaseApiRequest;
+use App\Http\Requests\BaseApiRequest;
 
 class DeleteStockMenuRequest extends BaseApiRequest
 {

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\StockItem;
 
-use App\Htttp\Request\BaseApiRequest;
+use App\Htttp\Requests\BaseApiRequest;
 
 class DeleteStockItemRequest extends BaseApiRequest
 {

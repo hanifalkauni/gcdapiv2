@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Expense;
 
-use App\Http\Request\BaseApiRequest;
+use App\Http\Requests\BaseApiRequest;
 
 class DeleteExpenseRequest extends BaaseApiRequest
 {

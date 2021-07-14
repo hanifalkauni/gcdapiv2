@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Menu;
 
-use App\Http\Request\BaseApiRequest;
+use App\Http\Requests\BaseApiRequest;
 
 class DeleteMenuRequest extends BaseApiRequest
 {

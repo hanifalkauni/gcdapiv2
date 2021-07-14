@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Worker;
 
-use App\Http\Request\BaseApiRequest;
+use App\Http\Requests\BaseApiRequest;
 
 class UpdateWorkerRequest extends BaseApiRequest
 {

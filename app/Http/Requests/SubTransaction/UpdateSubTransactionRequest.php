@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\SubTransaction;
 
-use App\Http\Request\BaseApiRequest;
+use App\Http\Requests\BaseApiRequest;
 
 class UpdateSubTransactionRequest extends BaseApiRequest
 {

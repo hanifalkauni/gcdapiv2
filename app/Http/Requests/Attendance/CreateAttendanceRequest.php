@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Attendance;
 
-use App\Http\Request\BaseApiRequest;
+use App\Http\Requests\BaseApiRequest;
 
 class CreateAttendanceRequest extends BaseApiRequest
 {
