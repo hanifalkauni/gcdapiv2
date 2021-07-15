@@ -1,6 +1,8 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
+use App\Http\Requests\GenerateRequest;
 use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\RegisterUserRequest;
 use App\Providers\UserServiceProvider;
@@ -25,6 +27,16 @@ class UserController extends BaseApiController
 
     public function get() {
         $result = $this->userServiceProvider->getUsers();
+        return $this->returnResponse($result);
+    }
+
+    public function getOne(UserRequest $request) {
+        $result = $this->userServiceProvider->getUser($request);
+        return $this->returnResponse($result);
+    }
+
+    public function generateToken(GenerateRequest $request) {
+        $result = $this->userServiceProvider->generateToken($request);
         return $this->returnResponse($result);
     }
 }

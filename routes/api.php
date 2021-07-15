@@ -5,8 +5,11 @@ Route::get('/testing/{mytest}','TestController@index');
 Route::group(['middleware' => 'apiKeyAuth'], function () {
     Route::post('/user/create', 'UserController@create');
     Route::post('/user/login', 'UserController@login');
+    Route::post('/user/generateToken','UserController@generateToken')->name('generateAccessToken');
     Route::group(['middleware' => 'userAuth'], function () {
         Route::get('/user/get', 'UserController@get');
+        Route::post('/user/getone','UserController@getOne')->name('getAccessToken');
+        
 
         Route::get('/product/get', 'ProductController@get');
         Route::put('/product/update', 'ProductController@update');

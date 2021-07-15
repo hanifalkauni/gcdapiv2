@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>GCD Web Service</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -29,7 +29,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                            GCD Web Service
                     </a>
                 </div>
 
@@ -76,5 +76,90 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script>
+        function getNow(){
+            $.ajax({
+                url:'{{route('getAccessToken')}}',
+		        type:'post',
+                dataType: 'json',
+                headers:{
+                    apiKey:'{{ env('API_KEY', 'Laravel') }}',
+                    accessToken:'e0314da9ee1913e979fd162c3cb6ec43'
+                },
+                data: {
+                    userId:{{Auth::id()}}
+                },
+
+                success:function(result){
+                    if(result.data.users){
+                    var accesstoken=result.data.users.accessToken;
+                    $('.accesstoken').html(`
+				    Here your accessToken : <code>`+accesstoken+`</code>
+			        `)
+                    }
+                    else{
+                        $('.accesstoken').html(`
+                    you havent access token yet<br>
+				    Generate your access token <a href="#" class="tombol" id="tombol">here</a>
+			        `)  
+                    }
+                },
+                error:function(){
+                    $('.accesstoken').html(`
+                    you havent access token yet<br>
+				    Generate your access token <a href="#" class="tombol" id="tombol">here</a>
+			        `)
+                }
+            });
+        }
+
+        function getAccessToken(){
+            $.ajax({
+                url:'{{route('generateAccessToken')}}',
+		        type:'post',
+                dataType: 'json',
+                headers:{
+                    apiKey:'{{ env('API_KEY', 'Laravel') }}',
+                },
+                data: {
+                    userId: {{Auth::id()}},
+                    deviceId:{{Auth::id()}},
+                    deviceType: 2,
+                    deviceToken: Math.floor(Math.random() * 1000000)
+
+                },
+
+                success:function(result){
+                    if(result.data.users){
+                    var accesstoken=result.data.users.accessToken;
+                    $('.accesstoken').html(`
+				    Here your accessToken : <code>`+accesstoken+`</code>
+			        `)
+                    }
+                    else{
+                        $('.accesstoken').html(`
+                    you havent access token yet<br>
+				    Generate your access token <a href="#" class="tombol" id="tombol">here</a>
+			        `)  
+                    }
+                },
+                error:function(){
+                    $('.accesstoken').html(`
+                    you havent access token yet<br>
+				    Generate your access token <a href="#" class="tombol" id="tombol">here</a>
+			        `)
+                }
+            });
+        }
+
+        $(document).ready(function(){
+	        getNow();
+        });
+
+        $('.accesstoken').on('click','.tombol',function(){
+            getAccessToken();
+        });
+    </script>
 </body>
 </html>

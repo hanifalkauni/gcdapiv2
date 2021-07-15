@@ -14,7 +14,15 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    Welcome!</br>
+                    You need ApiKey and AccessToken to access GCD API<hr>
+                    Here ApiKey to access GCD API : 
+                    <code>
+                    {{ env('API_KEY', 'Laravel') }}
+                    </code>
+                    <hr>
+                    <div class="accesstoken">
+                    </div>    
                 </div>
             </div>
         </div>

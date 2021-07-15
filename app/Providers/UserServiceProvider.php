@@ -99,5 +99,39 @@ class UserServiceProvider extends BaseServiceProvider {
         return UserServiceProvider::$data;
     }
 
+    public function getUser($request) {
+        try {
+            $users = DB::table('users')->join('access_tokens','users.id','userId')
+                        ->select('userId','name','email','role','status','accessToken')
+                        ->where('userId',$request->userId)->first();
+                UserServiceProvider::$data['status'] = 1;
+                UserServiceProvider::$data['data'] = ['users' => $users];
+                UserServiceProvider::$data['message'] = trans('messages.users_list');
+
+        } catch (\Exception $e) {
+            $this->logError(__CLASS__,__METHOD__,$e->getMessage());
+        }
+        return UserServiceProvider::$data;
+    }
+
+    public function generateToken($request) {
+        try {
+            $userId=$request->userId;
+            $utilObj = new AppUtility();
+            $accessToken = md5(uniqid(mt_rand(), true));
+            $isAccessTokenCreated = $this->accessTokenObj->create($request, $accessToken, $userId);
+            $users = DB::table('users')->join('access_tokens','users.id','userId')
+                        ->select('userId','name','email','role','status','accessToken')
+                        ->where('userId',$request->userId)->first();
+                UserServiceProvider::$data['status'] = 1;
+                UserServiceProvider::$data['data'] = ['users' => $users];
+                UserServiceProvider::$data['message'] = trans('messages.users_list');
+
+        } catch (\Exception $e) {
+            $this->logError(__CLASS__,__METHOD__,$e->getMessage());
+        }
+        return UserServiceProvider::$data;
+    }
+
 
 }
