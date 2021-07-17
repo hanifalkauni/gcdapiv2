@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Worker\DeleteWorkerRequest;
 use App\Http\Requests\Worker\UpdateWorkerRequest;
-use App\Http\Requests\Worker\CreateWorkerRequests;
+use App\Http\Requests\Worker\CreateWorkerRequest;
 use App\Providers\WorkerServiceProvider;
 
 class WorkerController extends BaseApiController
